@@ -36,8 +36,10 @@ extern void WSASetLastError(int set)
 //    out uint lpNumberOfBytesRead,
 //    IntPtr lpOverlapped);
 
-[<UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode, SetLastError = true)>]
-type ReadFileDelegate = delegate of (IntPtr * IntPtr * uint32 * uint32 * IntPtr) -> bool
+
+[<UnmanagedFunctionPointer(CallingConvention.StdCall, SetLastError = true)>]
+type ReadFileDelegate = delegate of nativeint * nativeint * uint32 * uint32 * nativeint -> [<MarshalAs(UnmanagedType.Bool)>] bool
+
 
 [<UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode, SetLastError = true)>]
 type SendToDelegate =

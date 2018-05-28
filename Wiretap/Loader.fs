@@ -14,11 +14,11 @@ let load (app: string, dll: string) =
   let mutable channel: string = null;
   let p: Process[] = Process.GetProcessesByName(app)
   if p.Length > 0 then
-    let id: int = p.[0].Id;
-    RemoteHooking.IpcCreateServer<HookCallbackHandler>(&channel, System.Runtime.Remoting.WellKnownObjectMode.Singleton) |> ignore
-    let objects : obj[] = [|channel; id; app|]
-    RemoteHooking.Inject(id, InjectionOptions.DoNotRequireStrongName, path, path, objects)
-    Console.WriteLine("Injected");
-    Thread.Sleep(30000);
-  else 
-    ()
+    try
+      let id: int = p.[0].Id;
+      RemoteHooking.IpcCreateServer<HookCallbackHandler>(&channel, System.Runtime.Remoting.WellKnownObjectMode.Singleton) |> ignore
+      let objects : obj[] = [|channel; id; app|]
+      RemoteHooking.Inject(id, InjectionOptions.DoNotRequireStrongName, path, path, objects)
+    with
+    | :? Exception as e -> printfn "Exception: %s" e.Message
+    Console.ReadKey() |> ignore
