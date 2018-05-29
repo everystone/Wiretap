@@ -12,7 +12,7 @@ type HookCallbackHandler () =
       printfn "Error: %s %s %s %i" appName processName methodName errorCode
     member this.OnHookInstalled(appName: string, processName: string): unit = 
       printfn "Hook installed: %s %s" appName processName
-    member this.OnHookInvoked(appName: string, methodName: string, processName: string): unit = 
-      printfn "Hook invoked: %s" methodName
+    member this.OnHookInvoked(appName: string, processName: string, methodName: string, data: string): unit = 
+      printfn "Hook %s: %s" methodName data
     member this.OnHookUnInstalled(appName: string, processName: string): unit = 
       printfn "Hook uninstalled"

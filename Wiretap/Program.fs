@@ -6,5 +6,5 @@
 [<EntryPoint>]
 let main argv = 
     printfn "%A" argv
-    load("notepad", "Payload.dll")
+    load("WoW", "Payload.dll")
     0

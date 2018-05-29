@@ -2,6 +2,7 @@
 
 open System.Runtime.InteropServices
 open System
+open Payload
 
 [<DllImport("kernel32.dll", SetLastError = true)>]
 extern bool ReadProcessMemory(IntPtr hProcess, uint32 lpBaseAddress, byte[] buffer, int size, IntPtr& lpNumberOfBytesRead)
@@ -28,6 +29,10 @@ extern int sendto(IntPtr Socket, IntPtr buff, int len, SendDataFlags flags, Sock
 [<DllImport("ws2_32.dll", CharSet = CharSet.Auto, SetLastError = true)>]
 extern void WSASetLastError(int set)
 
+ [<DllImport("WS2_32.dll", SetLastError = true)>]
+ extern int connect(IntPtr s, IntPtr addr, int addrsize);
+
+
 //[<UnmanagedFunctionPointer(CallingConvention.StdCall, SetLastError = true)>]
 //delegate bool ReadFile_Delegate(
 //    IntPtr hFile,
@@ -37,10 +42,14 @@ extern void WSASetLastError(int set)
 //    IntPtr lpOverlapped);
 
 
-[<UnmanagedFunctionPointer(CallingConvention.StdCall, SetLastError = true)>]
+[<UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi, SetLastError = true)>]
 type ReadFileDelegate = delegate of nativeint * nativeint * uint32 * uint32 * nativeint -> [<MarshalAs(UnmanagedType.Bool)>] bool
 
 
 [<UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode, SetLastError = true)>]
 type SendToDelegate =
-  delegate of IntPtr * IntPtr * int * SendDataFlags * SockAddr * int -> int
+  delegate of nativeint * nativeint * int * SendDataFlags * SockAddr * int -> int
+
+[<UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode, SetLastError = true)>]
+type ConnectDelegate =
+  delegate of nativeint * nativeint * int -> int
