@@ -1,4 +1,4 @@
-﻿namespace Payload
+﻿namespace Wiretap
 open Native
 open EasyHook
 open System
@@ -6,7 +6,7 @@ open System.Diagnostics
 open System.Threading
 open System.Runtime.InteropServices
 open ByteTools
-type public Payload(context: RemoteHooking.IContext, channelName: string, processId: int, applicationName: string) = 
+type public Wiretap(context: RemoteHooking.IContext, channelName: string, processId: int, applicationName: string) = 
   let handler: IHookCallbackHandler = RemoteHooking.IpcConnectClient<HookCallbackHandler>(channelName) :> IHookCallbackHandler
   let processName: string = Process.GetProcessById(processId).ProcessName
   let applicationName = applicationName

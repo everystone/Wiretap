@@ -1,4 +1,4 @@
-﻿module Loader
+﻿module Wiretap.Loader
 
 open EasyHook
 open System.IO

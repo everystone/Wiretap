@@ -1,4 +1,4 @@
-﻿module ByteTools
+﻿module Wiretap.ByteTools
 
 open System.Runtime.InteropServices
 

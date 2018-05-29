@@ -1,4 +1,4 @@
-﻿open Loader
+﻿open Wiretap.Loader
 
 // Learn more about F# at http://fsharp.org
 // See the 'F# Tutorial' project for more help.

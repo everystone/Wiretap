@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Wiretap", "Wiretap\Wiretap.fsproj", "{74F2D4E5-D5C8-443A-A94E-6716896C70C7}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Wiretap", "Wiretap\Wiretap.fsproj", "{DC4FDF8D-2F20-4C2A-9CC5-A5A28F089111}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Payload", "Payload\Payload.fsproj", "{DC4FDF8D-2F20-4C2A-9CC5-A5A28F089111}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Wiretap.Console", "Wiretap.Console\Wiretap.Console.fsproj", "{74F2D4E5-D5C8-443A-A94E-6716896C70C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{74F2D4E5-D5C8-443A-A94E-6716896C70C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74F2D4E5-D5C8-443A-A94E-6716896C70C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74F2D4E5-D5C8-443A-A94E-6716896C70C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74F2D4E5-D5C8-443A-A94E-6716896C70C7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DC4FDF8D-2F20-4C2A-9CC5-A5A28F089111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC4FDF8D-2F20-4C2A-9CC5-A5A28F089111}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC4FDF8D-2F20-4C2A-9CC5-A5A28F089111}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC4FDF8D-2F20-4C2A-9CC5-A5A28F089111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74F2D4E5-D5C8-443A-A94E-6716896C70C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74F2D4E5-D5C8-443A-A94E-6716896C70C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74F2D4E5-D5C8-443A-A94E-6716896C70C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74F2D4E5-D5C8-443A-A94E-6716896C70C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

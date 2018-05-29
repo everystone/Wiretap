@@ -1,4 +1,4 @@
-﻿namespace Payload.AssemblyInfo
+﻿namespace Wiretap.AssemblyInfo
 
 open System.Reflection
 open System.Runtime.CompilerServices
@@ -7,11 +7,11 @@ open System.Runtime.InteropServices
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[<assembly: AssemblyTitle("Payload")>]
+[<assembly: AssemblyTitle("Wiretap")>]
 [<assembly: AssemblyDescription("")>]
 [<assembly: AssemblyConfiguration("")>]
 [<assembly: AssemblyCompany("")>]
-[<assembly: AssemblyProduct("Payload")>]
+[<assembly: AssemblyProduct("Wiretap")>]
 [<assembly: AssemblyCopyright("Copyright ©  2018")>]
 [<assembly: AssemblyTrademark("")>]
 [<assembly: AssemblyCulture("")>]
@@ -22,7 +22,7 @@ open System.Runtime.InteropServices
 [<assembly: ComVisible(false)>]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[<assembly: Guid("dc4fdf8d-2f20-4c2a-9cc5-a5a28f089111")>]
+[<assembly: Guid("74f2d4e5-d5c8-443a-a94e-6716896c70c7")>]
 
 // Version information for an assembly consists of the following four values:
 // 
