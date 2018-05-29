@@ -7,21 +7,25 @@ type HookCallbackHandler () =
   inherit MarshalByRefObject()
 
   // events
-  let onCommand = new Event<_>()
+  //let command = new Event<_>()
+  //[<CLIEvent>]
+  //member this.CommandEvent = command.Publish
+  //member this.TriggerCommand(data: byte[]) =
+  //  command.Trigger(this, data)
 
-  [<CLIEvent>]
-  member this.CommandEvent = onCommand.Publish
-
-  member this.Command(arg) =
-    onCommand.Trigger(this, arg)
-
+  //let mutable messageQueue: byte[] = Array.zeroCreate 5
+  let mutable messageQueue: byte[] = [| |]
+  member this.Send buffer =
+    messageQueue <- buffer
 
   // Internal Hook callbacks.
   interface IHookCallbackHandler with
     member this.OnHookData(hookName: string, data: byte [], len: int): unit = 
       this.onData (hookName, data, len)
-    member this.Ping(): unit = 
-      ()
+    member this.Ping(): byte[] = 
+      let buffer: byte[] = messageQueue
+      messageQueue <- [||]
+      buffer
     member this.OnHookError(appName: string, processName: string, e: System.Exception): unit = 
       printfn "Error: %s" e.Message
       raise e

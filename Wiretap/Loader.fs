@@ -22,5 +22,3 @@ let load (processName: string, dll: string, handler: IHookCallbackHandler) =
       RemoteHooking.Inject(id, InjectionOptions.DoNotRequireStrongName, path, path, objects)
     with
     | :? Exception as e -> printfn "Exception: %s" e.Message
-    Console.ReadKey() |> ignore
-    // remove hook

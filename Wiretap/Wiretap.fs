@@ -9,11 +9,16 @@ open ByteTools
 
 type public Wiretap(context: RemoteHooking.IContext, channelName: string, processId: int, applicationName: string) = 
   //let handler: IHookCallbackHandler = RemoteHooking.IpcConnectClient<HookCallbackHandler>(channelName) :> IHookCallbackHandler
-  let handler: IHookCallbackHandler = RemoteHooking.IpcConnectClient<HookCallbackHandler>(channelName) :> IHookCallbackHandler
+  let callbackHandler: HookCallbackHandler = RemoteHooking.IpcConnectClient<HookCallbackHandler>(channelName)
+  let handler: IHookCallbackHandler = callbackHandler :> IHookCallbackHandler
   let processName: string = Process.GetProcessById(processId).ProcessName
   let applicationName = applicationName
   let mutable sendHook: LocalHook = null
   let mutable connectHook: LocalHook = null
+
+
+  // cached data from hooks
+  let mutable sock: IntPtr = IntPtr.Zero
 
   let reportError ex =
     try
@@ -25,6 +30,7 @@ type public Wiretap(context: RemoteHooking.IContext, channelName: string, proces
     //handler.OnHookInvoked(applicationName, processName, "send", message);
     let bytes: byte[] = nativeintToBytes buff len
     handler.OnHookData("send", bytes, len)
+    sock <- socket
     send(socket, buff, len, flags)
 
   let connectHookFun sock addr size =
@@ -40,9 +46,23 @@ type public Wiretap(context: RemoteHooking.IContext, channelName: string, proces
       ret
 
 
+  let sendData (data: byte[]) =
+    handler.OnHookInvoked(applicationName, processName, "sendData", "sending data..")
+    let p: IntPtr = Marshal.AllocHGlobal(data.Length)
+    Marshal.Copy(data, 0, p, data.Length)
+    //send(sock, p, data.length, 0) |> ignore
+    sendHookFun sock p data.Length 0 |> ignore
+    Marshal.FreeHGlobal(p)
+
   do
     // subscribe to events from handler
-    
+    //callbackHandler.CommandEvent.Add (fun (sender, data) ->
+    //  handler.OnHookInvoked(applicationName, processName, "Command", "sending data..")
+    //  let p: IntPtr = Marshal.AllocHGlobal(data.Length)
+    //  Marshal.Copy(data, 0, p, data.Length)
+    //  //send(sock, p, data.Length, 0) |> ignore
+    //  sendHookFun sock p data.Length 0 |> ignore
+    //  Marshal.FreeHGlobal(p))
 
     handler.OnHookInvoked(applicationName, processName, "ctor", "init")
 
@@ -58,14 +78,16 @@ type public Wiretap(context: RemoteHooking.IContext, channelName: string, proces
 
       // RemoteHooking.WakeUpProcess();
       handler.OnHookInstalled(applicationName, processName)
-      MessageBox(IntPtr.Zero, "Hooked!", "wiretap", 0) |> ignore
+      // MessageBox(IntPtr.Zero, "Hooked!", "wiretap", 0) |> ignore
       while true do
-        handler.Ping() // will throw exception if host process is down, and release hooks.
+        let data: byte[] = handler.Ping() // will throw exception if host process is down, and release hooks.
+        if data.Length > 0 then
+          sendData data
         Thread.Sleep(150)
 
     with
       | :? Exception as e ->
-        MessageBox(IntPtr.Zero, "Releasing Hooks", "Yo", 0) |> ignore
+        // MessageBox(IntPtr.Zero, "Releasing Hooks", "Yo", 0) |> ignore
         sendHook.Dispose()
         connectHook.Dispose()
         reportError e
