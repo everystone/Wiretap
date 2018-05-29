@@ -8,7 +8,7 @@
     <ProjectGuid>74f2d4e5-d5c8-443a-a94e-6716896c70c7</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Wiretap</RootNamespace>
-    <AssemblyName>Wiretap</AssemblyName>
+    <AssemblyName>Wiretap.Console</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseStandardResourceNames>true</UseStandardResourceNames>
@@ -56,6 +56,7 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="HookCallbacks.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
@@ -86,7 +87,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Payload\Wiretap.fsproj">
+    <ProjectReference Include="..\Wiretap\Wiretap.fsproj">
       <Name>Wiretap</Name>
       <Project>{dc4fdf8d-2f20-4c2a-9cc5-a5a28f089111}</Project>
       <Private>True</Private>

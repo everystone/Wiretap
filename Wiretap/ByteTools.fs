@@ -13,5 +13,5 @@ let nativeintToBytes n len =
   managedArray
   
 
-let nativeIntToString n len =
+let nativeIntToHexString n len =
   nativeintToBytes n len |> byteToHex

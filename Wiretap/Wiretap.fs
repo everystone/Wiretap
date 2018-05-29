@@ -6,7 +6,9 @@ open System.Diagnostics
 open System.Threading
 open System.Runtime.InteropServices
 open ByteTools
+
 type public Wiretap(context: RemoteHooking.IContext, channelName: string, processId: int, applicationName: string) = 
+  //let handler: IHookCallbackHandler = RemoteHooking.IpcConnectClient<HookCallbackHandler>(channelName) :> IHookCallbackHandler
   let handler: IHookCallbackHandler = RemoteHooking.IpcConnectClient<HookCallbackHandler>(channelName) :> IHookCallbackHandler
   let processName: string = Process.GetProcessById(processId).ProcessName
   let applicationName = applicationName
@@ -15,28 +17,33 @@ type public Wiretap(context: RemoteHooking.IContext, channelName: string, proces
 
   let reportError ex =
     try
-      handler.OnError(applicationName, processName, ex)
+      handler.OnHookError(applicationName, processName, ex)
     with Exception as e -> ()
 
   let sendHookFun socket buff len flags =
-    let message = nativeIntToString buff len
-    handler.OnHookInvoked(applicationName, processName, "send", message);
+    //let message = nativeIntToHexString buff len
+    //handler.OnHookInvoked(applicationName, processName, "send", message);
+    let bytes: byte[] = nativeintToBytes buff len
+    handler.OnHookData("send", bytes, len)
     send(socket, buff, len, flags)
 
   let connectHookFun sock addr size =
-    //let address: string = Marshal.PtrToStringAuto(sock)
-    let address: string = nativeIntToString addr size
+    //let address: string = Marshal.nativeIntToHexStringringAuto(sock)
+    let address: string = nativeIntToHexString addr size
     handler.OnHookInvoked(applicationName, processName, "connect", address);
     let ret: int = connect(sock, addr, size)
     if ret < 0 then
       let error: int = Marshal.GetLastWin32Error();
-      handler.OnErrorCaptured(applicationName, processName, "connect", error);
+      handler.OnHookErrorCaptured(applicationName, processName, "connect", error);
       error
     else 
       ret
 
 
   do
+    // subscribe to events from handler
+    
+
     handler.OnHookInvoked(applicationName, processName, "ctor", "init")
 
   interface IEntryPoint

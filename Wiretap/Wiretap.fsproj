@@ -8,7 +8,7 @@
     <ProjectGuid>dc4fdf8d-2f20-4c2a-9cc5-a5a28f089111</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Payload</RootNamespace>
-    <AssemblyName>Payload</AssemblyName>
+    <AssemblyName>Wiretap</AssemblyName>
     <UseStandardResourceNames>true</UseStandardResourceNames>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.4.1.0</TargetFSharpCoreVersion>
@@ -59,7 +59,6 @@
     <Compile Include="HookCallbackHandler.fs" />
     <Compile Include="Wiretap.fs" />
     <Compile Include="Loader.fs" />
-    <None Include="Script.fsx" />
     <Content Include="packages.config" />
     <None Include="EasyLoad64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
