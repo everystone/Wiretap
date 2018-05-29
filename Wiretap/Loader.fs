@@ -22,3 +22,4 @@ let load (processName: string, dll: string) =
     with
     | :? Exception as e -> printfn "Exception: %s" e.Message
     Console.ReadKey() |> ignore
+    // remove hook

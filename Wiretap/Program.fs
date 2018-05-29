@@ -5,6 +5,6 @@
 
 [<EntryPoint>]
 let main argv = 
-    printfn "%A" argv
+    // printfn "%A" argv
     load("WoW", "Payload.dll")
     0

@@ -5,6 +5,8 @@ open System
 type HookCallbackHandler () =
   inherit MarshalByRefObject()
   interface IHookCallbackHandler with
+    member this.Ping(): unit = 
+      ()
     member this.OnError(appName: string, processName: string, e: System.Exception): unit = 
       printfn "Error: %s" e.Message
       raise e

@@ -23,14 +23,6 @@ type SockAddr = struct
   val IPAddress: System.Net.IPAddress
 end
 
-[<DllImport("ws2_32.dll", CharSet = CharSet.Auto, SetLastError = true)>]
-extern int sendto(IntPtr Socket, IntPtr buff, int len, SendDataFlags flags, SockAddr To, int tomlen)
-
-[<DllImport("ws2_32.dll", CharSet = CharSet.Auto, SetLastError = true)>]
-extern void WSASetLastError(int set)
-
- [<DllImport("WS2_32.dll", SetLastError = true)>]
- extern int connect(IntPtr s, IntPtr addr, int addrsize);
 
 
 //[<UnmanagedFunctionPointer(CallingConvention.StdCall, SetLastError = true)>]
@@ -53,3 +45,39 @@ type SendToDelegate =
 [<UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode, SetLastError = true)>]
 type ConnectDelegate =
   delegate of nativeint * nativeint * int -> int
+
+[<UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Unicode, SetLastError = true)>]
+type SendDelegate =
+  delegate of nativeint * nativeint * int * int -> int
+
+
+[<DllImport("Ws2_32.dll", CharSet = CharSet.Ansi)>]
+extern uint32 inet_addr(string cp);
+
+[<DllImport("Ws2_32.dll")>]
+extern uint16 htons(uint16 hostshort);
+
+[<DllImport("ws2_32.dll", CharSet = CharSet.Unicode, SetLastError = true)>]
+extern IntPtr socket(int16 af, int16 socket_type, int protocol);
+
+[<DllImport("Ws2_32.dll")>]
+extern int send(IntPtr s, IntPtr buf, int len, int flags);
+
+[<DllImport("Ws2_32.dll")>]
+extern int recv(IntPtr s, IntPtr buf, int len, int flags);
+
+[<DllImport("ws2_32.dll", CharSet = CharSet.Unicode, SetLastError = true)>]
+extern int closesocket(IntPtr s);
+
+
+[<DllImport("ws2_32.dll", CharSet = CharSet.Auto, SetLastError = true)>]
+extern int sendto(IntPtr Socket, IntPtr buff, int len, SendDataFlags flags, SockAddr To, int tomlen)
+
+[<DllImport("ws2_32.dll", CharSet = CharSet.Auto, SetLastError = true)>]
+extern void WSASetLastError(int set)
+
+[<DllImport("WS2_32.dll", SetLastError = true, CallingConvention = CallingConvention.StdCall)>]
+extern int connect(nativeint sock, nativeint addr, int addrsize);
+
+[<DllImport("user32.dll", CharSet=CharSet.Auto)>]
+extern int MessageBox(nativeint hWnd, String text, String caption, int options);
